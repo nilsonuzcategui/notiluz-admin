@@ -19,11 +19,11 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarNotiluz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <?=$notiluz_act?>" href="#" id="navbarNotiluz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Notiluz
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarNotiluz">
-                        <li><a class="dropdown-item" href="#">Noticias</a></li>
+                        <li><a class="dropdown-item" href="<?= $ruta_inicio ?>?p=notiluz-noticias">Noticias</a></li>
                         <li><a class="dropdown-item" href="#">Etiquetas</a></li>
                     </ul>
                 </li>

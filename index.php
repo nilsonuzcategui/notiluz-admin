@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["notiluz-admin"])) {
+    include_once('./M/funciones.php');
     $html_insert = './V/inicio.php';
 
     $inicio_act = '';
@@ -11,6 +12,9 @@ if (isset($_SESSION["notiluz-admin"])) {
         if ($pag_get == 'hrno-puertas-tratados') {
             $puertas_act = 'active';
             $html_insert = './V/puertas_tratado.php';
+        }elseif($pag_get == 'notiluz-noticias'){
+            $notiluz_act = 'active';
+            $html_insert = './V/notiluz-noticia.php';
         }else{
             $inicio_act = 'active';
         }
