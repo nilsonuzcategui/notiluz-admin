@@ -32,7 +32,7 @@ function obtener_etiquetas(){
 
 function obtener_todas_noticias(){
     $mysqli = on_bd();
-    $sql = "SELECT * FROM noticia WHERE status";
+    $sql = "SELECT * FROM noticia WHERE status ORDER BY fecha DESC";
     $result = $mysqli->query($sql);
     if($mysqli->affected_rows > 0 ){
       $array = array();

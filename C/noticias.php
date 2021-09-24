@@ -46,7 +46,7 @@ $posicion = (isset($_POST['posicion'])) ? limpiar($_POST['posicion']) : '';
 
 
 if ($opt == 'add-noticia') {
-    $target_path = 'imagenes';
+    $target_path = '../../apis/imagenes';
     if (!file_exists($target_path)) {
         mkdir($target_path, 0777, true);
     }
@@ -84,21 +84,21 @@ if ($opt == 'add-noticia') {
         //validar si se repite o no se repite
         $noticia_url = generar_validar_url_noticia($noticia_url);
 
-        // $sql = "INSERT INTO `noticia` (`iduser`, `fecha`, `titulo`, `subtitulo`, `contenido`, `baner`, `imagen`, `pais`, `importante`, `noticia_url`) 
-        // VALUES ($iduser, '$fecha', '$titulo', '$subtitulo', '$contenido', '$img_banner', '$img_cuadrado', '$pais', '$num_importante','$noticia_url');";
-        // $result = $mysqli->query($sql);
-        // if($mysqli->affected_rows > 0 ){
-        //     $idnoticia = $mysqli->insert_id;
-        //     //agregar etiquetas
-        //     foreach ($etiquetas as $idetiqueta) {
-        //         $sql2 = "INSERT INTO `noticia_etiqueta` (`idnoticia`, `idetiqueta`) VALUES ($idnoticia, $idetiqueta);";
-        //         $result = $mysqli->query($sql2);
-        //     }
-        //     $array['response'] = 'exito';
-        // }else {
-        //     $array['response'] = 'error_insert';
-        //     $array['sql'] = $sql;
-        // }
+        $sql = "INSERT INTO `noticia` (`iduser`, `fecha`, `titulo`, `subtitulo`, `contenido`, `baner`, `imagen`, `pais`, `importante`, `noticia_url`) 
+        VALUES ($iduser, '$fecha', '$titulo', '$subtitulo', '$contenido', '$img_banner', '$img_cuadrado', '$pais', '$num_importante','$noticia_url');";
+        $result = $mysqli->query($sql);
+        if($mysqli->affected_rows > 0 ){
+            $idnoticia = $mysqli->insert_id;
+            //agregar etiquetas
+            foreach ($etiquetas as $idetiqueta) {
+                $sql2 = "INSERT INTO `noticia_etiqueta` (`idnoticia`, `idetiqueta`) VALUES ($idnoticia, $idetiqueta);";
+                $result = $mysqli->query($sql2);
+            }
+            $array['response'] = 'exito';
+        }else {
+            $array['response'] = 'error_insert';
+            $array['sql'] = $sql;
+        }
         $array['response'] = 'exito';
     }else { //editar una noticia
         $noticia = obtener_noticia_detallada_id($idnoticia);

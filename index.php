@@ -27,6 +27,11 @@ if (isset($_SESSION["notiluz-admin"])) {
     <head>
         <title>Notiluz Administrador</title>
         <?php include_once('./M/head.php')?>
+        <style>
+            .cursor-pointer{
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <body>

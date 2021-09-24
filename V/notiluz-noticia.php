@@ -1,9 +1,14 @@
 <?php
 $etiquetas = obtener_etiquetas();
 $noticias = obtener_todas_noticias();
+//rutas para las noticias desde el admin
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
+    $ruta_noticia = "/notiluz-mdb/noticia/";
+} else {
+    $ruta_noticia = "/noticia/";
+}
 ?>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <style>
     .insertar_imagen {
         display: table;
@@ -106,7 +111,7 @@ $noticias = obtener_todas_noticias();
             </div>
             <div class="form-group">
                 <label for="contenido">Contenido</label>
-                <textarea type="text" class="form-control" id="contenido" name="contenido" required></textarea>
+                <textarea type="text" rows="10" class="form-control" id="contenido" name="contenido" required></textarea>
             </div>
 
             <div class="form-group">
@@ -163,7 +168,61 @@ $noticias = obtener_todas_noticias();
             </div>
 
         </form>
+
+
+        <hr>
+        <h4>Listado de Noticas</h4>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="dtBasicExample" class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">Fecha</th>
+                            <th class="th-sm">Titulo</th>
+                            <th class="th-sm">Sub-Titulo</th>
+                            <th class="th-sm">Pais</th>
+                            <th class="th-sm">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($noticias as $row) {
+                            $paisAux = ($row['pais'] == '') ? 'Internacional' : $row['pais'];
+                            echo '
+                    <tr>
+                        <td>' . $row['fecha'] . '</td>
+                        <td>' . $row['titulo'] . '</td>
+                        <td>' . $row['subtitulo'] . '</td>
+                        <td>' . $paisAux . '</td>
+                        <td>
+                            <i class="fa fa-pencil-square-o fa-2x text-muted cursor-pointer editar_noticia" data-id="' . $row['idnoticia'] . '" aria-hidden="true" style="font-size: 20px;"></i>
+                            <i class="fa fa-eraser fa-2x text-muted cursor-pointer borrar_noticia" data-id="' . $row['idnoticia'] . '" aria-hidden="true" style="font-size: 20px;"></i>
+                            <a href="' . $ruta_noticia . 'admin-noticias-img?i=' . $row['idnoticia'] . '">
+                                <i class="fa fa-picture-o fa-2x text-muted cursor-pointer" aria-hidden="true" style="font-size: 20px;"></i>
+                            </a>
+                            <a href="' . $ruta_noticia . '?n=' . $row['noticia_url'] . '" target="_blanck">
+                                <i class="fa fa-eye fa-2x text-muted cursor-pointer" aria-hidden="true" style="font-size: 20px;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    ';
+                        }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Titulo</th>
+                            <th>Sub-Titulo</th>
+                            <th>Pais</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<script src="<?=$ruta_inicio?>V/js/notiluz-noticia.js"></script>
+<script src="<?= $ruta_inicio ?>V/js/notiluz-noticia.js"></script>
